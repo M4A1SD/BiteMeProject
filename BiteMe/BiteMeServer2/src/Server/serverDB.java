@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import logic.Order;
+
+import logic.Orders.Order;
 
 public class serverDB {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/";

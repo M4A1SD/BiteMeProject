@@ -1,5 +1,9 @@
 package gui;
 
+import java.util.ArrayList;
+
+import com.mysql.cj.xdevapi.Client;
+
 import client.ClientUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,11 +45,11 @@ public class PersonalDataController {
 	public void intialize()
 	{
 		//add the personaldata
-	 clientui.requestDetails(new ArrayList<String>);
+	 clientui.requestDetails(new ArrayList<String>());
 	 Name.setText(client.name);
 	 Phone.setText(client.phone);
 	 FamilyName.setText(client.FamilyName);
-	 Email.setText(client.email);
+	 Email.setText(client.Email);
 	 Id.setText(client.id);
 	}
 	

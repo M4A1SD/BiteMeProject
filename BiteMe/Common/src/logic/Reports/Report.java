@@ -1,4 +1,4 @@
-package logic;
+package logic.Reports;
 
 import java.io.File;
 import java.io.Serializable;

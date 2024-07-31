@@ -1,6 +1,15 @@
-package logic;
+package logic.Orders;
+
+import EnumsAndConstants.TypeOfProduct;
 
 public class PreOrderDelivery extends Delivery {
+
+	public PreOrderDelivery(int deliveryId, String address, TypeOfProduct type, float deliveryFee, int orderId,
+			String usernamesOfParticipants, String numOfParticipants, String deliveryTime) {
+		super(deliveryId, address, type, deliveryFee, orderId, usernamesOfParticipants, numOfParticipants);
+		this.deliveryTime = deliveryTime;
+		// TODO Auto-generated constructor stub
+	}
 
 	private String deliveryTime;
 
@@ -8,12 +17,6 @@ public class PreOrderDelivery extends Delivery {
 	 * 
 	 */
 	private static final long serialVersionUID = 2785999044405825850L;
-
-	public PreOrderDelivery(String orderAddress, String firstName, String lastName, String phoneNumber,
-			float orderPrice, float discount, String deliveryTime) {
-		super(orderAddress, firstName, lastName, phoneNumber, orderPrice, discount);
-		this.deliveryTime = deliveryTime;
-	}
 
 	/**
 	 * @return the deliveryTime

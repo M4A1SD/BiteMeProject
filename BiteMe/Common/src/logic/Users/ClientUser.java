@@ -1,4 +1,4 @@
-package logic;
+package logic.Users;
 
 public class ClientUser {
 	private String ipAddress, hostName, status;

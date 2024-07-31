@@ -8,8 +8,8 @@ import com.mysql.cj.xdevapi.Client;
 import ServerGui.ServerPortFrameController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import logic.Order;
-import logic.ClientUser;
+import logic.Orders.Order;
+import logic.Users.ClientUser;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 

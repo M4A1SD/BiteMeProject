@@ -21,7 +21,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import logic.Order;
+import logic.Orders.Order;
 
 public class BuisnessOrderController {
 	private ClientUI client;

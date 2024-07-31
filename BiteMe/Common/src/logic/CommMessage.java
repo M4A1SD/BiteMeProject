@@ -22,7 +22,7 @@ public class CommMessage implements Serializable {
 	private String dataType; //data type of object 
 	
 	//data from client to server
-	private String commandForServer;  //command from user to perform
+	private String commandForServer;  //command from user to perform //ENUM
 	private ArrayList<String> messageForServer;  //command descriptions
 	private Object objectForServer; //object for server for create or else
 	

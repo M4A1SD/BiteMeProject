@@ -1,8 +1,5 @@
-package logic;
+package logic.Users;
 
-
-import java.io.File;
-import java.io.Serializable;
 
 import EnumsAndConstants.*;
 
@@ -12,8 +9,7 @@ import EnumsAndConstants.*;
  * 
  */
 public abstract class User{
-
-	private String id;
+	
 	private String userName;
 	private String password;
 	private String firstName;
@@ -22,7 +18,14 @@ public abstract class User{
 	private String phoneNumber;
 	private UserType userType;
 	private BranchLocation mainBranch;
+	private String id;
 	private int isLoggedIn;
+	
+	
+	//THIS DOESNT MATCH SQL TABLE
+	private int refundCredit;
+	
+	
 	
 	/**
 	 * @param id
@@ -47,7 +50,7 @@ public abstract class User{
 		this.phoneNumber = phoneNumber;
 		this.userType = userType;
 		this.mainBranch = mainBranch;
-	}
+	}	
 	
 	public User() {
 	}	
@@ -156,6 +159,14 @@ public abstract class User{
 
 	public String toString() {
 		return id + " " + firstName + " " + lastName;
+	}
+
+	public int getRefundCredit() {
+		return refundCredit;
+	}
+
+	public void setRefundCredit(int refundCredit) {
+		this.refundCredit = refundCredit;
 	}
 	
 	

@@ -1,8 +1,9 @@
-package logic;
+package logic.Reports;
 
 import java.io.File;
 
 import EnumsAndConstants.*;
+import logic.Users.BranchManager;
 
 public class QuarterReport extends Report {
 	

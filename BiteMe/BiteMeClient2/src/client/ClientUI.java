@@ -9,7 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import logic.CommMessage;
-import logic.User;
+import logic.Users.User;
 
 
 

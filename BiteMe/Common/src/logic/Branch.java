@@ -2,22 +2,26 @@ package logic;
 
 import java.io.Serializable;
 import EnumsAndConstants.BranchLocation;
+import logic.Users.BranchManager;
 
 public class Branch implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7545747177565237611L;
 	private BranchLocation branchLocation;
+	private int NumOfRestaurants;
 	private BranchManager branchManager;
+	private static final long serialVersionUID = 7545747177565237611L;
+
 	
-	public Branch(BranchLocation branchLocation, BranchManager branchManager) {
+	public Branch(BranchLocation branchLocation, BranchManager branchManager, int NumOfRestaurants) {
 		super();
 		this.branchLocation = branchLocation;
 		this.branchManager = branchManager;
+		this.setNumOfRestaurants(NumOfRestaurants);
 	}
-	
+		
 	
 	/**
 	 * @return the BranchLocation
@@ -45,6 +49,16 @@ public class Branch implements Serializable {
 	 */
 	public void setBranchManager(BranchManager branchManager) {
 		this.branchManager = branchManager;
+	}
+
+
+	public int getNumOfRestaurants() {
+		return NumOfRestaurants;
+	}
+
+
+	public void setNumOfRestaurants(int numOfRestaurants) {
+		NumOfRestaurants = numOfRestaurants;
 	}
 		
 }

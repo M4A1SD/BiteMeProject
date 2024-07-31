@@ -11,8 +11,8 @@ import gui.PersonalDataController;
 import gui.RestaurantController;
 import javafx.application.Platform;
 import logic.CommMessage;
-import logic.Order;
-import logic.User;
+import logic.Orders.Order;
+import logic.Users.User;
 import ocsf.client.AbstractClient;
 
 public class ChatClient extends AbstractClient {

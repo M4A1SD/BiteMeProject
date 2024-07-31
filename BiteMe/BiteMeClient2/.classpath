@@ -5,10 +5,11 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fx"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="src" path="/OCSF"/>
 	<classpathentry exported="true" kind="src" path="/Common"/>
-	<classpathentry kind="lib" path="C:/Users/lidor/OneDrive/Desktop/Studies/Workplace/Sem E/Engineering methods for developing software systems/Tutorial/tutorial3 - Workbench&amp;JDBC/mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/bld93/Documents/GitHub/BiteMeProject/BiteMe/BiteMeServer2/mysql-connector-java-8.0.13.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
