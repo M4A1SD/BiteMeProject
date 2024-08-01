@@ -39,8 +39,9 @@ public class CartPageController {
 		msg.add(client.user.getUserName());
 		msg.add(String.valueOf(client.restaurant.getRestaurantId()));
 		msg.add(String.valueOf(client.delivery.getDeliveryId()));
-		CommMessage cmsg = new CommMessage(CommandConstants.GetOrder, msg);
-		client.GetOrderData(cmsg);
+		//CommMessage cmsg = new CommMessage(CommandConstants.GetOrder, msg);
+		//GET ORDER FUNCTIION MISSING
+		//client.GetOrderData(cmsg);
 	}
 
 	/**
@@ -66,23 +67,25 @@ public class CartPageController {
 	@FXML
 	public void handleBtnDeleteDish(ActionEvent event) throws Exception {
 		// Add a listener to track the selected item
-		lstview.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			// newValue is the selected item
-			if (newValue != null) {
-				ArrayList<items> arr = client.order.getItemsInOrder();
-				if (arr.contains(newValue)) {
-					client.order.setNumOfItems(client.order.getNumOfItems() - 1);
-					double itemp = newValue.getPrice();
-					arr.remove(newValue);
-					client.order.setItemsInOrder(arr);
-					double newPrice = (client.order.getTotal_price());
-					newPrice = newPrice - itemp;
-					client.order.setTotal_price(newPrice);
-					price.setText(String.valueOf(newPrice));
-				}
-
-			}
-		});
+//		lstview.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//			// newValue is the selected item
+//			if (newValue != null) {
+//				//ArrayList<items> arr = client.order.getItemsInOrder();
+//				
+//				
+//				if (arr.contains(newValue)) {
+//					client.order.setNumOfItems(client.order.getNumOfItems() - 1);
+//					double itemp = newValue.getPrice();
+//					arr.remove(newValue);
+//					//client.order.setItemsInOrder(arr);
+//					double newPrice = (client.order.getTotal_price());
+//					newPrice = newPrice - itemp;
+//					client.order.setTotal_price(newPrice);
+//					price.setText(String.valueOf(newPrice));
+//				}
+//
+//			}
+//		});
 
 	}
 

@@ -3,7 +3,10 @@ package gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import EnumsAndConstants.BranchLocation;
 import EnumsAndConstants.CommandConstants;
+import EnumsAndConstants.UserType;
+import client.ChatClient;
 import client.ClientUI;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -17,6 +20,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.CommMessage;
+import logic.Users.Customer;
+import logic.Users.User;
 
 public class LoginPageController {
 
@@ -50,14 +55,35 @@ public class LoginPageController {
     
     // Submit button to read user input and send to server
     public void sumbitCredentialsToServer(ActionEvent event) throws Exception {
+
         String userInput = userName.getText();
+
+
         String passInput = password.getText();
+
+
+
         ArrayList<String> sendToServer = new ArrayList<String>();
+
         sendToServer.add(userInput);
         sendToServer.add(passInput);
-        client.RequestData(new CommMessage(CommandConstants.Login,sendToServer));
-        
+        //client.RequestData(new CommMessage(CommandConstants.Login,sendToServer));
+        System.out.println("LoginPageController.java sumbitCredentialsToServer(). 1");
+
+        //User customerBob = new Customer("3" , "bwilliams", "password123" , "Bob", "Williams" , "bobwilliams@example.com" ,"555-8765", UserType.Customer, BranchLocation.South );
+        System.out.println("LoginPageController.java sumbitCredentialsToServer(). 2");
+
+        ChatClient nigga = new ChatClient("localhost", 5555, null);
+        System.out.println("LoginPageController.java sumbitCredentialsToServer(). 3");
+
+        nigga.handleMessageFromServer(null);
+        System.out.println("LoginPageController.java sumbitCredentialsToServer(). 4");
+
+
+
         ((Node)event.getSource()).getScene().getWindow().hide();
+
+
     }
     
     public void logoutPressed(ActionEvent event) throws Exception {
@@ -131,8 +157,16 @@ public class LoginPageController {
     
     // exit button method that `kill` the server and exit the application 
     public void exitApp(ActionEvent event) throws Exception {
-        ClientUI.chat.accept("disconnect");
-    	System.exit(0);
+        try {
+        	//ClientUI.chat.accept("disconnect");
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            // Close the stage
+            stage.close();
+            //System.exit(0);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+    	
     }
     
     @FXML

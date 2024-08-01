@@ -17,8 +17,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import logic.ClientUser;
-
+import logic.Orders.*;
+import logic.Users.*;
 public class ServerPortFrameController {
     @FXML
     private Button btnExit;

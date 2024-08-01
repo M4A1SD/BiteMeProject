@@ -41,8 +41,8 @@ public class MenuPageController {
         // Create a message to request the list of menus
         ArrayList<String> msg = new ArrayList<>();
         msg.add(String.valueOf(client.restaurant.getMenuId()));
-        CommMessage cmsg = new CommMessage(CommandConstants.GetMenu, msg);
-        
+       // CommMessage cmsg = new CommMessage(CommandConstants.GetMenu, msg);
+        //create get menu funciton
     }
 
     /**

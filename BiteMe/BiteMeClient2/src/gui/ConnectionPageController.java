@@ -28,27 +28,49 @@ public class ConnectionPageController {
 	private ClientUI client;
 	
 	public void connectToServer(ActionEvent event) throws Exception {
-		((Node)event.getSource()).getScene().getWindow().hide();
-
-		String ipDestination = ipField.getText();
 		
-		client.newConnection(ipDestination);
+		((Node)event.getSource()).getScene().getWindow().hide();
+		
+		String ipDestination = ipField.getText();
+		client = new ClientUI();
+		client.newConnection("localhost");
+		System.out.println("connectToServer");
+
+		
+        try {
+            // Use the correct relative path for the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginPage.fxml"));
+            loader.setController(new LoginPageController());
+            root = loader.load();
+            Stage stage = new Stage();
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            //stage.setTitle("Login Page");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("OpenUp function failed");
+            e.printStackTrace();
+        }
+		
+		
 		openUpStart();
 	}
 	
-	
+	private Parent root;
 	 public void start(Stage primaryStage) {
+		// Platform.runLater(() -> { 
 	        try {
-	        	Parent root = FXMLLoader.load(getClass().getResource("/gui/LoginPage.fxml"));
+	        	root = FXMLLoader.load(getClass().getResource("/gui/ConnectionPage.fxml"));
 	            Scene scene = new Scene(root);
-	            scene.getStylesheets().add(getClass().getResource("/gui/LoginPage.css").toExternalForm());
-	            primaryStage.setTitle("Login Page");
+	            scene.getStylesheets().add(getClass().getResource("/gui/ConnectionPage.css").toExternalForm());
+	            primaryStage.setTitle("Connection Page");
 	            primaryStage.setScene(scene);
 	            primaryStage.show();  
 	        } catch (Exception e) {
 	            System.err.println("Error loading FXML or CSS files.");
 	            e.printStackTrace();
-	        }     
+	        }    
+		  //});
 	    }
 	
 	
@@ -57,26 +79,11 @@ public class ConnectionPageController {
 		}
 		
 		
-	    public void openUpStart() {
-	        Platform.runLater(() -> { 
-//	        	The error IllegalStateException: Not on FX application thread indicates that you're trying to update the JavaFX UI from a thread other than the JavaFX Application Thread. All JavaFX UI updates must occur on the JavaFX Application Thread.
-//	        	To resolve this, you can use Platform.runLater, which ensures that the code runs on the JavaFX Application Thread. Here's how you can modify your openUp method in StartPageController:
-
-
-	            try {
-	                FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginPage.fxml"));
-	                Parent root = loader.load();
-
-	                Stage stage = new Stage();
-	                stage.setTitle("Connection Page");
-	                stage.setScene(new Scene(root));
-	                stage.show();
-	            } catch (IOException e) {
-	                System.out.println("OpenUp function failed");
-	                e.printStackTrace();
-	            }
-	        });
-	    }			
+		public void openUpStart() {
+		 //   Platform.runLater(() -> {
+	
+		 //   });
+		}
 			
 		
 			

@@ -114,8 +114,8 @@ public class CommMessage implements Serializable {
 		this.dataType = dataType;
 	}
 	
-	public String getCommandForServer() {
-		return commandForServer.toString();
+	public CommandConstants getCommandForServer() {
+		return commandForServer;
 	}
 	
 	public void setCommandForServer(CommandConstants commandForServer) {

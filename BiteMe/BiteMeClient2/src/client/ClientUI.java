@@ -2,6 +2,7 @@ package client;
 
 import java.io.IOException;
 
+import EnumsAndConstants.BranchLocation;
 import EnumsAndConstants.UserType;
 import gui.ConnectionPageController;
 import javafx.application.Application;
@@ -14,6 +15,7 @@ import logic.Restaurant;
 import logic.items;
 import logic.Orders.Delivery;
 import logic.Orders.Order;
+import logic.Users.Customer;
 import logic.Users.User;
 
 public class ClientUI extends Application {
@@ -30,7 +32,8 @@ public class ClientUI extends Application {
 	//////// ---> Login page controller methods <--- ////////
 
 	public void openUserGUI(User user) {
-		this.user = user;
+		
+		this.user = user ;
 		String fxmlStringPath = "";
 		String title = "";
 		if (user.getUserType().equals(UserType.Customer)) {
@@ -87,7 +90,10 @@ public class ClientUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// new GUI - start page
+		
 		ConnectionPageController aFrame = new ConnectionPageController();
+		
+
 		aFrame.start(primaryStage);
 	}
 	//////// ---> Cart page controller methods <--- ////////
@@ -98,12 +104,16 @@ public class ClientUI extends Application {
 
 	// create connection to server.
 	public void newConnection(String ip) {
+		System.out.println("connectToServer3");
 		chat = new ClientController(ip, 5555);
+		
+
 	}
 
 	public void guiConverter(String title, String fxmlStringPath) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlStringPath));
+			//																	loader.setController(new LoginPageController());
 			Parent root = loader.load();
 			Stage stage = new Stage();
 			stage.setTitle(title);

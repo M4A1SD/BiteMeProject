@@ -1,0 +1,3 @@
+loader.setController(new LoginPageController());
+
+
