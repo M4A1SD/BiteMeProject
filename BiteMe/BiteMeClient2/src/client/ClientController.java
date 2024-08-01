@@ -46,7 +46,7 @@ public class ClientController implements ChatIF
     try 
     {
       client= new ChatClient(host, port, this);
-      client.openConnection(); 
+      client.openConnection(); //added
     } 
     catch(IOException exception) 
     {

@@ -49,6 +49,7 @@ public class EchoServer extends AbstractServer {
                 String address = parts[3];
                 String restaurant = parts[4];
                 int ordList  = Integer.parseInt(parts[5]);
+                
                 Order updatedOrder = new Order("", orderNumber, price, 0, address); // Assuming restaurant and list number are not required here
                 boolean success = database.updateOrder(updatedOrder);
                 try {

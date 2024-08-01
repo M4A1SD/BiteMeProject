@@ -7,8 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
-public class UserHomeController {
-	
+public class BusinessCustomerHomePageController {
+
 	private ClientUI client;
 	@FXML
 	private Button btnBack;
@@ -16,8 +16,6 @@ public class UserHomeController {
 	private Button btnStartOrder;
 	@FXML
 	private Button btnPreviusOrder;
-	@FXML
-	private Button btnRecpites;
 	@FXML
 	private ImageView personalData;
 	
@@ -41,5 +39,4 @@ public class UserHomeController {
 		client.guiConverter("PersonalData Page", "/gui/PersonalDataPage.fxml");
 
 	}
-
 }

@@ -10,7 +10,12 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import logic.CommMessage;
+
 import java.time.*;
+import java.util.ArrayList;
+
+import EnumsAndConstants.CommandConstants;
 
 public class DeliveryController {
 	
@@ -57,8 +62,10 @@ public class DeliveryController {
 			error.setVisible(true);
 			error.setText("please fill all fields");
 		} else {
-			((Node) event.getSource()).getScene().getWindow().hide();
-			client.guiConverter("restaurant", "/gui/restaurantPage.fxml");
+	        ArrayList<String> sendToServer = new ArrayList<String>();
+	        sendToServer.add(client.user.getUserName());
+	        sendToServer.add(client.user.getUserName());
+	        client.RequestData(new CommMessage(CommandConstants.Login,sendToServer));
 		}
 	}
 	public void back(ActionEvent event) throws Exception{

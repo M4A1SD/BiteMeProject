@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import logic.Orders.Order;
+import logic.Orders.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -31,18 +31,16 @@ public class ConnectionPageController {
 	private TextField ipField;
 	
 	@FXML
-	private TextField portNumberTXTBox;
+	private Button submitOrderId = null;
 	
 	private ClientUI client;
-	
 	
 	public void connectToServer(ActionEvent event) throws Exception {
 		((Node)event.getSource()).getScene().getWindow().hide();
 
 		String ipDestination = ipField.getText();
-		int portDestination = Integer.parseInt(portNumberTXTBox.getText());
 		
-		client.newConnection(ipDestination,portDestination);
+		client.newConnection(ipDestination);
 		openUpStart();
 	}
 	

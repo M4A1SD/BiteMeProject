@@ -11,52 +11,61 @@ import gui.PersonalDataController;
 import gui.RestaurantController;
 import javafx.application.Platform;
 import logic.CommMessage;
-import logic.Orders.Order;
-import logic.Users.User;
+import logic.Orders.*;
+import logic.Users.*;
 import ocsf.client.AbstractClient;
 
 public class ChatClient extends AbstractClient {
 	// Instance variables **********************************************
 
-	ChatIF chatIf;
+	ChatIF clientUI;
 	public static boolean awaitResponse = false;
-	private static ClientUI clientui;
+	private static ClientUI clientui = null;
+	public static LoginPageController LoginPageController;
 
 	// Constructors ****************************************************
 
-	public ChatClient(String host, int port, ChatIF chatIf) throws IOException {
+	public ChatClient(String host, int port, ChatIF clientUI) throws IOException {
 		super(host, port);
-		this.chatIf = chatIf;
+		this.clientUI = clientUI;
 	}
 
 	// Instance methods ************************************************
 
 	public void handleMessageFromServer(Object msg) {
 		CommMessage messageFromSrv = new CommMessage();
-		messageFromSrv = (CommMessage)msg;
+		messageFromSrv = (CommMessage) msg;
 		switch (messageFromSrv.getCommandForServer()) {
-			case "Login":
-				if (messageFromSrv.isSucceeded()) {
-					User user = (User)messageFromSrv.getDataFromServer();
-					clientui.openUserGUI(user);
-				}
-				else {
-					System.out.println(messageFromSrv.getMsg());
-				}
-				break;
-			case "Logout":
-				if(messageFromSrv.isSucceeded()) {
-					User user = (User)messageFromSrv.getDataFromServer();
-					clientui.closeUserGUI(user);
-				}
-				else {
-					System.out.println(messageFromSrv.getMsg());
-				}
-			default:
-				break;
+		case "Login":
+			if (messageFromSrv.isSucceeded()) {
+				User user = (User) messageFromSrv.getDataFromServer();
+				clientui.openUserGUI(user);
+			} else {
+				System.out.println(messageFromSrv.getMsg());
 			}
-		awaitResponse = false;
+			break;
+		case "Logout":
+			if (messageFromSrv.isSucceeded()) {
+				User user = (User) messageFromSrv.getDataFromServer();
+				clientui.user.setIsLoggedIn(0);
+				clientui.closeUserGUI(user);
+			} else {
+				System.out.println(messageFromSrv.getMsg());
+			}
+		case "PersonalData":
+			if (messageFromSrv.isSucceeded()) {
+				User user = (User) messageFromSrv.getDataFromServer();
+				clientui.user = user;
+				clientui.reciveMsgToGui("Update Successfull");
+			} else {
+				clientui.reciveMsgToGui("error in updating user");
+			}
+			break;
+
+		}
 	}
+
+
 
 	public void handleMessageFromClientUI(Object msg) {
 		try {
@@ -73,7 +82,7 @@ public class ChatClient extends AbstractClient {
 		} catch (IOException e) {
 			System.out.println("handleMessageFromClientUI FAILED");
 			e.printStackTrace();
-			chatIf.display("Could not send message to server: Terminating client." + e);
+			clientUI.display("Could not send message to server: Terminating client." + e);
 			quit();
 		}
 	}

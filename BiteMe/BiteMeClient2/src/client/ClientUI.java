@@ -3,13 +3,17 @@ import java.io.IOException;
 
 import EnumsAndConstants.UserType;
 import gui.ConnectionPageController;
+import gui.LoginPageController;
+import gui.PersonalDataController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import logic.CommMessage;
-import logic.Users.User;
+import logic.Orders.*;
+import logic.Users.*;
+import logic.Supplier;
 
 
 
@@ -18,10 +22,16 @@ public class ClientUI extends Application {
 	
 	public static ClientController chat; //only one instance
 	public static ChatClient client;
+	public User user;
+	public Supplier supplier;
+	public Delivery delivery;
+	public Order order;
+	private String msg;
 	
 	//////// ---> Login page controller methods <--- ////////
 	
 	public void openUserGUI(User user) {
+		this.user=user;
 		String fxmlStringPath = "";
 		String title = "";
 		if(user.getUserType().equals(UserType.Customer)){
@@ -41,7 +51,8 @@ public class ClientUI extends Application {
 			title = "CEO home page";
 		}
 		if(user.getUserType().equals(UserType.Supplier)) {
-			fxmlStringPath = "/gui/Supplier HomePage.fxml";
+			this.supplier=(Supplier) user;
+			fxmlStringPath = "/gui/SupplierHomePage.fxml";
 			title = "Supplier home page";
 		}
 		else {
@@ -50,14 +61,19 @@ public class ClientUI extends Application {
 		guiConverter(title, fxmlStringPath);
 	}
 	
-	public void requestDetails(CommMessage msg) {
-		
-	}
 	
 	public void closeUserGUI(User user) {
 		guiConverter("Login Page","/gui/LoginPage.fxml");
 	}
-	
+	public void SendLoggoutRequest(CommMessage commMessage)
+	{
+		chat.accept(commMessage);
+	}
+	//////// ---> Personal page controller methods <--- ////////
+	public void sendUserPersonalData(CommMessage commMessage)
+	{
+		chat.accept(commMessage);
+	}
 	
 	/////////////////////////////////////////
 	
@@ -66,7 +82,11 @@ public class ClientUI extends Application {
 		//launch start method 
 		launch(args);  
 	} 
-	 
+	//////// ---> PickRestaurantpage controller methods <--- ////////
+	public void SendRestaurantData(CommMessage commMessage)
+	{
+		chat.accept(commMessage);
+	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {	
@@ -76,10 +96,14 @@ public class ClientUI extends Application {
 	}
 	
 	//create connection to server.
-	public void newConnection(String ip, int port) {
-		chat = new ClientController(ip, port);
+	public void newConnection(String ip) {
+		chat = new ClientController(ip, 5555);
 	}
 	
+	public void RequestData(CommMessage comm)
+	{
+		chat.accept(comm);
+	}
 	
 	public void guiConverter(String title,String fxmlStringPath)
 	{
@@ -94,6 +118,14 @@ public class ClientUI extends Application {
 			System.out.println(title + ": failed to open");
 			e.printStackTrace();
 		}
+	}
+	public void reciveMsgToGui(String msg)
+	{
+		this.msg=msg;
+	}
+	public String ReturnMsgToGui()
+	{
+		return msg;
 	}
 	
 	

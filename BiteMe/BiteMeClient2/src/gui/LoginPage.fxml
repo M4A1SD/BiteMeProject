@@ -13,9 +13,8 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <AnchorPane prefHeight="120.0" prefWidth="800.0" style="-fx-background-color: #F3B93C;" BorderPane.alignment="CENTER">
          <children>
@@ -69,8 +68,7 @@
             <TextField layoutX="279.0" layoutY="119.0" prefHeight="25.0" prefWidth="222.0" />
             <TextField layoutX="280.0" layoutY="193.0" prefHeight="25.0" prefWidth="219.0" />
             <Button fx:id="btnLogin" layoutX="330.0" layoutY="276.0" mnemonicParsing="false" onAction="#sumbitCredentialsToServer" prefHeight="25.0" prefWidth="119.0" text="Login" />
-            <Button fx:id="btnExit" layoutX="660.0" layoutY="438.0" mnemonicParsing="false" onAction="#exitApplication" prefHeight="25.0" prefWidth="115.0" text="Exit" />
-            <Text fx:id="error" layoutX="117.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" wrappingWidth="566.1367797851562" />
+            <Button fx:id="btnExit" layoutX="660.0" layoutY="438.0" mnemonicParsing="false" onAction="#Exit" prefHeight="25.0" prefWidth="115.0" text="Exit" />
          </children></AnchorPane>
    </center>
 </BorderPane>

@@ -2,8 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
-import com.mysql.cj.xdevapi.Client;
-
+import EnumsAndConstants.CommandConstants;
 import client.ClientUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,18 +10,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import logic.CommMessage;
+import logic.Users.*;
 
 public class PersonalDataController {
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
 	private ClientUI clientui;
-	private Client client;
 	@FXML
 	private Button btnBack = null;
 	@FXML
@@ -45,23 +37,35 @@ public class PersonalDataController {
 	public void intialize()
 	{
 		//add the personaldata
-	 clientui.requestDetails(new ArrayList<String>());
-	 Name.setText(client.name);
-	 Phone.setText(client.phone);
-	 FamilyName.setText(client.FamilyName);
-	 Email.setText(client.Email);
-	 Id.setText(client.id);
+		ArrayList<String> data=new ArrayList<String>();
+		data.add(clientui.user.getUserName().toString());
+		data.add(clientui.user.getPassword().toString());
+		clientui.sendUserPersonalData(new CommMessage(CommandConstants.getPersonalData,data));
+	 Name.setText(clientui.user.getFirstName());
+	 Phone.setText(clientui.user.getPhoneNumber());
+	 FamilyName.setText(clientui.user.getLastName());
+	 Email.setText(clientui.user.getEmail());
+	 Id.setText(clientui.user.getId());
 	}
 	
 	public void UpdateDetails(ActionEvent event)
 	{
-		clientui.UpdateDetails(client);
+		clientui.user.setFirstName(Name.getText());
+		clientui.user.setLastName(FamilyName.getText());
+		clientui.user.setPhoneNumber(Phone.getText());
+		clientui.user.setEmail(Email.getText());
+		clientui.user.setId(Id.getText());
+		ArrayList<String> data=new ArrayList<String>();
+		data.add(clientui.user.toString());
+		clientui.sendUserPersonalData(new CommMessage(CommandConstants.setPersonalData,data));
+		error.setText(clientui.ReturnMsgToGui());
+		error.setVisible(true);
 	}
 	
 	public void back(ActionEvent event) throws Exception{
 		//check what customer it is?
 		((Node) event.getSource()).getScene().getWindow().hide();
-		clientui.guiConverter("Home Page", "/gui/UserHomePage.fxml");
+		clientui.openUserGUI(clientui.user);
 	}
 	
 	

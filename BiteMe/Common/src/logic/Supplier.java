@@ -11,14 +11,14 @@ public class Supplier extends User {
 			String phoneNumber, UserType userType, BranchLocation mainBranch, String RestauarantName) {
 		super(id, userName, password, firstName, lastName, email, phoneNumber, userType, mainBranch);
 		this.setUserType(UserType.Supplier);
-		this.setRestauarantName(RestauarantName);
+		this.setRestaurantName(RestauarantName);
 	}
 
-	public String getRestauarantName() {
+	public String getRestaurantName() {
 		return RestauarantName;
 	}
 
-	public void setRestauarantName(String restauarantName) {
+	public void setRestaurantName(String restauarantName) {
 		RestauarantName = restauarantName;
 	}
 

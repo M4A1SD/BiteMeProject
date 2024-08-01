@@ -53,12 +53,14 @@ public class serverDB {
         return null;
     }
 
+    
+    //prototpyte
     public static boolean updateOrder(Order order) {
         String updateSQL = "UPDATE `order` SET Total_price = ?, Order_address = ? WHERE Order_number = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
-            pstmt.setDouble(1, order.getTotal_price());
-            pstmt.setString(2, order.getOrder_adress());
-            pstmt.setInt(3, order.getOrder_number());
+            //pstmt.setDouble(1, order.getTotal_price()); prototype, irrelevant
+            //pstmt.setString(2, order.getOrder_adress());
+            //pstmt.setInt(3, order.getOrder_number());
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("Failed to update order: " + e.getMessage());
