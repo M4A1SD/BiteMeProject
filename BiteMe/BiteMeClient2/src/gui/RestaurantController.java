@@ -14,7 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import logic.CommMessage;
-import logic.Supplier;
+import logic.Users.Supplier;
 
 public class RestaurantController {
 

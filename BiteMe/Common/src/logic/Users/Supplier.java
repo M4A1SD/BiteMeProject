@@ -1,8 +1,7 @@
-package logic;
+package logic.Users;
 
 import EnumsAndConstants.BranchLocation;
 import EnumsAndConstants.UserType;
-import logic.Users.User;
 
 public class Supplier extends User {
 	private String RestauarantName;

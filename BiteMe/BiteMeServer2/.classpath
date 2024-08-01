@@ -7,10 +7,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fx"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="src" path="/Common"/>
 	<classpathentry exported="true" kind="src" path="/OCSF"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/BiteMeClient2"/>
-	<classpathentry kind="lib" path="C:/Users/bld93/Documents/GitHub/BiteMeProject/BiteMe/BiteMeServer2/mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="lib" path="S:/Users/bld93/Github/BiteMeProject/BiteMe/BiteMeServer2/mysql-connector-java-8.0.13.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx"/>
+	<classpathentry kind="src" path="/Common"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

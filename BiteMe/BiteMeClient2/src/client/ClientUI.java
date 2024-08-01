@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import logic.CommMessage;
 import logic.Orders.*;
 import logic.Users.*;
-import logic.Supplier;
 
 
 

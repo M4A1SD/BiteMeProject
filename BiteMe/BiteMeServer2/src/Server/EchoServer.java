@@ -3,9 +3,6 @@ package Server;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.mysql.cj.xdevapi.Client;
-
-import ServerGui.ServerPortFrameController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import logic.Orders.Order;
