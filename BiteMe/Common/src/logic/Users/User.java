@@ -22,6 +22,7 @@ public abstract class User{
 	private int isLoggedIn;
 	
 	
+	
 	//THIS DOESNT MATCH SQL TABLE
 	private int refundCredit;
 	
@@ -157,8 +158,16 @@ public abstract class User{
 		return userName;
 	}
 
+//	public String toString() {
+//		return id + " " + firstName + " " + lastName;
+//	}
+
+	@Override
 	public String toString() {
-		return id + " " + firstName + " " + lastName;
+		return "User [userName=" + userName + ", password=" + password + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", userType=" + userType
+				+ ", mainBranch=" + mainBranch + ", id=" + id + ", isLoggedIn=" + isLoggedIn + ", refundCredit="
+				+ refundCredit + "]";
 	}
 
 	public int getRefundCredit() {

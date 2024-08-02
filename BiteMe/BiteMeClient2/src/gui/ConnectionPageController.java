@@ -11,10 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.application.Platform;
+import client.ChatClient;
 import client.ClientUI;
 
 public class ConnectionPageController {
 	
+
 	
 	@FXML
 	private Button btnConnect = null;
@@ -33,13 +35,14 @@ public class ConnectionPageController {
 		
 		String ipDestination = ipField.getText();
 		client = new ClientUI();
-		client.newConnection("localhost");
-		System.out.println("connectToServer");
+		client.newConnection(ipDestination);
+
 
 		
         try {
             // Use the correct relative path for the FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginPage.fxml"));
+            LoginPageController loginCtrl =  new LoginPageController ();
             loader.setController(new LoginPageController());
             root = loader.load();
             Stage stage = new Stage();
@@ -53,7 +56,6 @@ public class ConnectionPageController {
         }
 		
 		
-		openUpStart();
 	}
 	
 	private Parent root;

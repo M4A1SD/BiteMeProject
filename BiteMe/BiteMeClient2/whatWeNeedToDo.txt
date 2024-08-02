@@ -1,3 +1,8 @@
 loader.setController(new LoginPageController());
 
 
+chatClient isnt innitialized at all
+made a stub
+
+created userStubs class to have all userTypes
+

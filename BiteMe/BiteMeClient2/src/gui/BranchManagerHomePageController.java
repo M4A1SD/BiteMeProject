@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import logic.Users.User;
 
 /**
  * Controller class for the Manager Home Page.
@@ -25,7 +26,14 @@ public class BranchManagerHomePageController {
     @FXML
     private Button logoutButton;
 
-    /**
+    private User user;
+    
+    
+    public BranchManagerHomePageController(User user) {
+    	this.user = user;
+	}
+
+	/**
      * Handles the View Monthly Report button action.
      * This method is called when the view Monthly report button is pressed.
      */

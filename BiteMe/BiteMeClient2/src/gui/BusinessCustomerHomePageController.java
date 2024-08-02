@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import logic.Users.User;
 
 public class BusinessCustomerHomePageController {
 
@@ -18,6 +19,20 @@ public class BusinessCustomerHomePageController {
 	private Button btnPreviusOrder;
 	@FXML
 	private ImageView personalData;
+	
+	private User user;
+	
+	public BusinessCustomerHomePageController(User user) {
+		this.user = user;
+	}
+
+
+
+
+
+	
+	
+	
 	
 	public void Back(ActionEvent event) throws Exception {
 		((Node) event.getSource()).getScene().getWindow().hide();
@@ -32,6 +47,7 @@ public class BusinessCustomerHomePageController {
 	public void StartOrder(ActionEvent event) throws Exception {
 		((Node) event.getSource()).getScene().getWindow().hide();
 		client.guiConverter("Start Order", "/gui/StartOrderPage.fxml");
+		
 
 	}
 	public void PersonalData(ActionEvent event) throws Exception {

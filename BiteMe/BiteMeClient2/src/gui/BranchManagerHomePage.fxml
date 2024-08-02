@@ -54,7 +54,7 @@
       </AnchorPane>
    </top>
    <left>
-      <AnchorPane prefHeight="430.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to bottom right, #F0F0F0, #F0F0F0, #FFFFF);" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="430.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to bottom right, #F0F0F0, #F0F0F0, #FFFFFF);" BorderPane.alignment="CENTER">
          <children>
             <Button layoutX="694.0" layoutY="425.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="77.0" text="Logout" />
             <Text layoutX="183.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello manager, what would you like to do today?">

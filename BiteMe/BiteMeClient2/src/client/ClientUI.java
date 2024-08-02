@@ -1,10 +1,16 @@
 package client;
 
 import java.io.IOException;
+import java.lang.ModuleLayer.Controller;
 
 import EnumsAndConstants.BranchLocation;
 import EnumsAndConstants.UserType;
+import gui.BranchManagerHomePageController;
+import gui.BusinessCustomerHomePageController;
 import gui.ConnectionPageController;
+import gui.CustomerHomeController;
+import gui.RestaurantController;
+import gui.StartOrderController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,34 +42,50 @@ public class ClientUI extends Application {
 		this.user = user ;
 		String fxmlStringPath = "";
 		String title = "";
-		if (user.getUserType().equals(UserType.Customer)) {
+		Object controller = null;
+		//switch case
+		switch(user.getUserType()) {
+		
+		case Customer:
 			fxmlStringPath = "/gui/CustomerHomePage.fxml";
 			title = "Customer home page";
-		}
-		if (user.getUserType().equals(UserType.BusinessCustomer)) {
+			controller = new CustomerHomeController(user);
+	
+			break;
+		case BusinessCustomer:
+			
 			fxmlStringPath = "/gui/BusinessCustomerHomePage.fxml";
 			title = "Business Customer home page";
-		}
-		if (user.getUserType().equals(UserType.BranchManager)) {
+			 controller = new BusinessCustomerHomePageController(user);
+
+			break;
+		
+		case BranchManager:
+			
 			fxmlStringPath = "/gui/BranchManagerHomePage.fxml";
-			title = "Branch Manager home page";
-		}
-		if (user.getUserType().equals(UserType.CEO)) {
-			fxmlStringPath = "/gui/CEOHomePage.fxml";
-			title = "CEO home page";
-		}
-		if (user.getUserType().equals(UserType.Supplier)) {
-			this.restaurant.setSupplierId(user.getId());
+			title = "Branch manager home page";
+			 controller = new BranchManagerHomePageController(user);
+
+			break;
+			
+			
+		case Supplier:
 			fxmlStringPath = "/gui/SupplierHomePage.fxml";
-			title = "Supplier home page";
-		} else {
-			System.out.println("User type not found");
+			title = "Supplier manager home page";
+			 controller = new SupplierHomePageController(user);
+
+			break;
+			
+			
+		
 		}
-		guiConverter(title, fxmlStringPath);
+		
+		
+		guiConverter(title, fxmlStringPath, controller);	
 	}
 
 	public void closeUserGUI(User user) {
-		guiConverter("Login Page", "/gui/LoginPage.fxml");
+		//guiConverter("Login Page", "/gui/LoginPage.fxml");
 	}
 	public void SendLoggoutRequest(CommMessage commMessage)
 	{
@@ -92,7 +114,7 @@ public class ClientUI extends Application {
 		// new GUI - start page
 		
 		ConnectionPageController aFrame = new ConnectionPageController();
-		
+	
 
 		aFrame.start(primaryStage);
 	}
@@ -110,15 +132,18 @@ public class ClientUI extends Application {
 
 	}
 
-	public void guiConverter(String title, String fxmlStringPath) {
+	public void guiConverter(String title, String fxmlStringPath, Object controller) {
 		try {
+			System.out.println("ClientUI.java guiConverter() convering" + title);
+
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlStringPath));
-			//																	loader.setController(new LoginPageController());
+			loader.setController(controller);
 			Parent root = loader.load();
 			Stage stage = new Stage();
 			stage.setTitle(title);
 			stage.setScene(new Scene(root));
 			stage.show();
+			
 		} catch (IOException e) {
 			System.out.println(title + ": failed to open");
 			e.printStackTrace();

@@ -2,6 +2,7 @@ package client;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import EnumsAndConstants.BranchLocation;
 import EnumsAndConstants.CommandConstants;
@@ -19,7 +20,7 @@ public class ChatClient extends AbstractClient {
 
 	ChatIF clientUI;
 	public static boolean awaitResponse = false;
-	private static ClientUI clientui = null;
+	private static ClientUI clientui ;
 	public static LoginPageController LoginPageController;
 
 	// Constructors ****************************************************
@@ -27,46 +28,44 @@ public class ChatClient extends AbstractClient {
 	public ChatClient(String host, int port, ChatIF clientUI) throws IOException {
 		super(host, port);
 		this.clientUI = clientUI;
+		
 	}
 
 	// Instance methods ************************************************
 
 	public void handleMessageFromServer(Object msg) {
-		System.out.println(msg.toString());
-		System.out.println(" ChatClientD.java handleMessageFromServer(). start");
-
-		System.out.println("STUB ChatClientD.java handleMessageFromServer(). CREATE SERVER RESPONSE");
-
+		//msg cant be null
 		
-        User customerBob = new Customer("3" , "bwilliams", "password123" , "Bob", "Williams" , "bobwilliams@example.com" ,"555-8765", UserType.Customer, BranchLocation.South );
 
-		CommMessage clientPackage = new CommMessage(CommandConstants.Login, null );
-		CommMessage serverPackage = new CommMessage(true, "kniga",  customerBob);
+        //create login request for, for a bwiliams user
+		CommMessage clientPackage = new CommMessage(CommandConstants.Login,  new ArrayList<>(Arrays.asList("bwilliams", "password123")) ); 
+		
+
+		UserStubs allCustomersStubs = new UserStubs();
+		
+		//create success response,
+        User customer = allCustomersStubs.customerBob;
+		CommMessage serverPackage = new CommMessage(true, "kniga",  customer);
 		serverPackage.setCommandForServer(clientPackage.getCommandForServer());
-		
-		
-		//CommMessage messageFromSrv = new CommMessage(true, "pidor", Object dataFromServer) {
-
 		
 		CommMessage messageFromSrv;
 		messageFromSrv = serverPackage;
-		System.out.println(" ChatClientD.java handleMessageFromServer(). 1");
-		System.out.println("the command is " + messageFromSrv.getCommandForServer());
 
 		switch (messageFromSrv.getCommandForServer()) {
 
 		case Login:
-			System.out.println(" ChatClientD.java handleMessageFromServer(). 2");
 
 			if (messageFromSrv.isSucceeded()) {
 				User user = (User) messageFromSrv.getDataFromServer();
-				
-				//STUBBBB!!!
-				
 
+
+
+				System.out.println("Warning: ChatClient.java, field private static ClientUI clientui ; is STUBBED. might cause issues later");
+				clientui = new ClientUI();
 				clientui.openUserGUI(user);
+
+
 			} else {
-				System.out.println(messageFromSrv.getMsg());
 			}
 			break;
 		case LogOut:
@@ -75,7 +74,6 @@ public class ChatClient extends AbstractClient {
 				user.setIsLoggedIn(0);
 				clientui.closeUserGUI(user);
 			} else {
-				System.out.println(messageFromSrv.getMsg());
 			}
 		case UpdatePersonalData:
 			if (messageFromSrv.isSucceeded()) {

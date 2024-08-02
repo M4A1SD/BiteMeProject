@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import logic.Users.User;
 import javafx.scene.Node;
 
 public class StartOrderController {
@@ -22,6 +23,12 @@ public class StartOrderController {
 	private Button FutureBtn;
 	@FXML
 	private Button backBtn;
+
+	private User user;
+	
+	public StartOrderController(User user) {
+		this.user = user;
+	}
 
 	public void Back(ActionEvent event) throws Exception {
 		((Node) event.getSource()).getScene().getWindow().hide();

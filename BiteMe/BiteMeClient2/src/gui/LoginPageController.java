@@ -25,6 +25,9 @@ import logic.Users.User;
 
 public class LoginPageController {
 
+	
+
+	
     @FXML
     private Button btnExit = null;
     
@@ -56,28 +59,21 @@ public class LoginPageController {
     // Submit button to read user input and send to server
     public void sumbitCredentialsToServer(ActionEvent event) throws Exception {
 
-        String userInput = userName.getText();
-
-
-        String passInput = password.getText();
-
-
-
-        ArrayList<String> sendToServer = new ArrayList<String>();
-
-        sendToServer.add(userInput);
-        sendToServer.add(passInput);
-        //client.RequestData(new CommMessage(CommandConstants.Login,sendToServer));
-        System.out.println("LoginPageController.java sumbitCredentialsToServer(). 1");
+    	
+    	//----------- STUBBED
+//        String userInput = userName.getText();
+//        String passInput = password.getText();
+//        ArrayList<String> sendToServer = new ArrayList<String>();
+//        sendToServer.add(userInput);
+//        sendToServer.add(passInput);
+//        client.RequestData(new CommMessage(CommandConstants.Login,sendToServer));
 
         //User customerBob = new Customer("3" , "bwilliams", "password123" , "Bob", "Williams" , "bobwilliams@example.com" ,"555-8765", UserType.Customer, BranchLocation.South );
-        System.out.println("LoginPageController.java sumbitCredentialsToServer(). 2");
 
-        ChatClient nigga = new ChatClient("localhost", 5555, null);
-        System.out.println("LoginPageController.java sumbitCredentialsToServer(). 3");
+        ChatClient nigga = new ChatClient("localhost", 5255, null);
 
-        nigga.handleMessageFromServer(null);
-        System.out.println("LoginPageController.java sumbitCredentialsToServer(). 4");
+
+        nigga.handleMessageFromServer("not NULL");
 
 
 
@@ -92,6 +88,11 @@ public class LoginPageController {
         sendToServer.add(client.user.getPassword());
     	client.SendLoggoutRequest(new CommMessage(CommandConstants.LogOut,sendToServer));
     }
+    
+    
+    
+    
+    
     
   
 //    public void successfullLogin(User user)
