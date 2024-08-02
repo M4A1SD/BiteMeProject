@@ -43,11 +43,12 @@ public class ChatClient extends AbstractClient {
 
 		UserStubs allCustomersStubs = new UserStubs();
 		
-		//create success response,
+		//------------------------
+		//
         User customer = allCustomersStubs.customerBob;
 		CommMessage serverPackage = new CommMessage(true, "kniga",  customer);
 		serverPackage.setCommandForServer(clientPackage.getCommandForServer());
-		
+		//-----------------------
 		CommMessage messageFromSrv;
 		messageFromSrv = serverPackage;
 
@@ -60,8 +61,9 @@ public class ChatClient extends AbstractClient {
 
 
 
-				System.out.println("Warning: ChatClient.java, field private static ClientUI clientui ; is STUBBED. might cause issues later");
+				System.out.println("Warning: ChatClient.java,handleMessageFromServer field private static ClientUI clientui ; is STUBBED. might cause issues later");
 				clientui = new ClientUI();
+
 				clientui.openUserGUI(user);
 
 

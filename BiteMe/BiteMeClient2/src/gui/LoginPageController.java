@@ -72,7 +72,6 @@ public class LoginPageController {
 
         ChatClient nigga = new ChatClient("localhost", 5255, null);
 
-
         nigga.handleMessageFromServer("not NULL");
 
 

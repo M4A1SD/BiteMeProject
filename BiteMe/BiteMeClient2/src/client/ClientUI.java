@@ -1,11 +1,8 @@
 package client;
 
 import java.io.IOException;
-import java.lang.ModuleLayer.Controller;
-
 import EnumsAndConstants.BranchLocation;
 import EnumsAndConstants.UserType;
-import gui.BranchManagerHomePageController;
 import gui.BusinessCustomerHomePageController;
 import gui.ConnectionPageController;
 import gui.CustomerHomeController;
@@ -38,7 +35,7 @@ public class ClientUI extends Application {
 	//////// ---> Login page controller methods <--- ////////
 
 	public void openUserGUI(User user) {
-		
+
 		this.user = user ;
 		String fxmlStringPath = "";
 		String title = "";
@@ -64,7 +61,7 @@ public class ClientUI extends Application {
 			
 			fxmlStringPath = "/gui/BranchManagerHomePage.fxml";
 			title = "Branch manager home page";
-			 controller = new BranchManagerHomePageController(user);
+			// controller = new BranchManagerHomePageController(user);
 
 			break;
 			
@@ -72,8 +69,12 @@ public class ClientUI extends Application {
 		case Supplier:
 			fxmlStringPath = "/gui/SupplierHomePage.fxml";
 			title = "Supplier manager home page";
-			 controller = new SupplierHomePageController(user);
+			// controller = new SupplierHomePageController(user);
 
+			break;
+		case CEO:
+			break;
+		default:
 			break;
 			
 			
@@ -126,16 +127,15 @@ public class ClientUI extends Application {
 
 	// create connection to server.
 	public void newConnection(String ip) {
-		System.out.println("connectToServer3");
 		chat = new ClientController(ip, 5555);
 		
 
 	}
 
 	public void guiConverter(String title, String fxmlStringPath, Object controller) {
-		try {
-			System.out.println("ClientUI.java guiConverter() convering" + title);
+		System.out.println("ClientUI.java guiConvcerted(); trying to open "+ title);
 
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlStringPath));
 			loader.setController(controller);
 			Parent root = loader.load();

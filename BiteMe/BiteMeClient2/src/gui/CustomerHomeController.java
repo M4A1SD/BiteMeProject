@@ -3,9 +3,13 @@ package gui;
 import client.ClientUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import logic.Users.User;
 
 public class CustomerHomeController {
@@ -33,8 +37,7 @@ public class CustomerHomeController {
 		super();
 		
 		this.user = user;
-		System.out.println("CustomerHomePage.java CustomerHomeController();   testing do i have the right User in me");
-		System.out.println(user.toString());
+
 	}
 //	public void Back(ActionEvent event) throws Exception {
 //		((Node) event.getSource()).getScene().getWindow().hide();
@@ -50,18 +53,27 @@ public class CustomerHomeController {
 	@FXML
 	public void StartOrder(ActionEvent event) throws Exception {
 		System.out.println("CustomerHomePage.java StartOrder();   button clicked");
-		System.out.println(user.toString());
 		((Node) event.getSource()).getScene().getWindow().hide();
 		
-		Object controller;
-		StartOrderController controller1 = new StartOrderController(user);
-		controller = controller1;
-		client.guiConverter("Start Order", "/gui/StartOrderPage.fxml", controller);
+
+		Object controller = new StartOrderController(user);
+		System.out.println("CustomerHomePage.java StartOrder(); now gui converter");
+//		client.guiConverter("Start Order", "/gui/StartOrderPage.fxml", controller);
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/StartOrderPage.fxml"));
+		loader.setController(controller);
+		Parent root = loader.load();
+		Stage stage = new Stage();
+		stage.setTitle("Start order");
+		stage.setScene(new Scene(root));
+		stage.show();
+		
+		
 	}
 //	public void PersonalData(ActionEvent event) throws Exception {
 //		((Node) event.getSource()).getScene().getWindow().hide();
 //		client.guiConverter("PersonalData Page", "/gui/PersonalDataPage.fxml");
-//
+//ss
 //	}
 }
 

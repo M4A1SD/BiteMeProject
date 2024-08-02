@@ -30,25 +30,25 @@ public class StartOrderController {
 		this.user = user;
 	}
 
-	public void Back(ActionEvent event) throws Exception {
-		((Node) event.getSource()).getScene().getWindow().hide();
-		client.guiConverter("Start Order", "/gui/UserHomePage.fxml");
-
-	}
-
-	public void Delivery(ActionEvent event) throws Exception{
-		((Node) event.getSource()).getScene().getWindow().hide();
-		client.guiConverter("Start Delivery", "/gui/DeliveryPage.fxml");
-
-	}
-
-	public void PickUp(ActionEvent event) throws Exception{
-		((Node) event.getSource()).getScene().getWindow().hide();
-		client.guiConverter("Start PickUp", "/gui/PickUpPage.fxml");
-	}
-
-	public void Future(ActionEvent event) throws Exception{
-		((Node) event.getSource()).getScene().getWindow().hide();
-		client.guiConverter("Start Future Order", "/gui/PickUpPage.fxml");
-	}
+//	public void Back(ActionEvent event) throws Exception {
+//		((Node) event.getSource()).getScene().getWindow().hide();
+//		client.guiConverter("Start Order", "/gui/UserHomePage.fxml");
+//
+//	}
+//
+//	public void Delivery(ActionEvent event) throws Exception{
+//		((Node) event.getSource()).getScene().getWindow().hide();
+//		client.guiConverter("Start Delivery", "/gui/DeliveryPage.fxml");
+//
+//	}
+//
+//	public void PickUp(ActionEvent event) throws Exception{
+//		((Node) event.getSource()).getScene().getWindow().hide();
+//		client.guiConverter("Start PickUp", "/gui/PickUpPage.fxml");
+//	}
+//
+//	public void Future(ActionEvent event) throws Exception{
+//		((Node) event.getSource()).getScene().getWindow().hide();
+//		client.guiConverter("Start Future Order", "/gui/PickUpPage.fxml");
+//	}
 }
