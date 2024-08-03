@@ -11,6 +11,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <top>
@@ -39,21 +40,33 @@
                   <GaussianBlur />
                </effect>
             </Line>
-            <Label layoutX="277.0" layoutY="31.0" text="Start Order">
+            <Label alignment="CENTER" graphicTextGap="10.0" layoutX="208.0" layoutY="26.0" prefHeight="73.0" prefWidth="384.0" text="Customer Home " textAlignment="CENTER">
                <font>
                   <Font size="50.0" />
                </font>
             </Label>
+            <ImageView fitHeight="42.0" fitWidth="44.0" layoutX="744.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@userLogo.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </top>
-   <center>
-      <AnchorPane prefHeight="430.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to bottom right, #F0F0F0, #F0F0F0, #FFFFF);" BorderPane.alignment="CENTER">
+   <right>
+      <AnchorPane prefHeight="430.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to bottom right, #F0F0F0, #F0F0F0, #FFFFFF);" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="deliveryBtn" layoutX="582.0" layoutY="147.0" mnemonicParsing="false" onAction="#Delivery" prefHeight="63.0" prefWidth="103.0" text="Delivery" />
-            <Button fx:id="pickUpBtn" layoutX="343.0" layoutY="150.0" mnemonicParsing="false" onAction="#PickUp" prefHeight="61.0" prefWidth="109.0" text="Pick-Up" />
-            <Button fx:id="futureBtn" layoutX="84.0" layoutY="145.0" mnemonicParsing="false" onAction="#Future" prefHeight="70.0" prefWidth="105.0" text="Future-Order" />
-            <Button fx:id="backBtn" layoutX="745.0" layoutY="438.0" mnemonicParsing="false" onAction="#Back" text="Back" />
+            <Button fx:id="btnStartOrder" layoutX="56.0" layoutY="182.0" mnemonicParsing="false" onAction="#StartOrder" prefHeight="79.0" prefWidth="166.0" text="Start New Order" />
+            <Button layoutX="336.0" layoutY="182.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="166.0" text="Previous Orders" />
+            <Button layoutX="700.0" layoutY="438.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Logout" />
+            <Text layoutX="67.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello, thank you for choosing BiteMe, please select the desired option bellow." wrappingWidth="666.8034057617188">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Line endX="-12.66668701171875" endY="63.33331298828125" layoutX="291.0" layoutY="192.0" startX="-12.66668701171875" startY="-9.333343505859375" />
+            <Button layoutX="602.0" layoutY="180.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="166.0" text="Contact Us" />
+            <Line endX="-12.66668701171875" endY="63.33331298828125" layoutX="571.0" layoutY="192.0" startX="-12.66668701171875" startY="-9.333343505859375" />
          </children></AnchorPane>
-   </center>
+   </right>
 </BorderPane>
