@@ -6,7 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import logic.Orders.Order;
+import EnumsAndConstants.BranchLocation;
+import EnumsAndConstants.UserType;
+import logic.CommMessage;
+import logic.ResultSetFromDB;
+import logic.Users.User;
 
 public class serverDB {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/";
@@ -34,45 +38,148 @@ public class serverDB {
             return false;
         }
     }
+    
+    public static CommMessage Logout(String username, String password,CommMessage msg) {
+    	String updateQuery = "UPDATE biteme.users SET isLoggedIn = 0 WHERE Username = ? AND Password = ?";
+        PreparedStatement updateStmt;
+		try {
+			updateStmt = conn.prepareStatement(updateQuery);
+			updateStmt.setString(1, username);
+			updateStmt.setString(2, password);
+			updateStmt.executeUpdate();
+			msg.setSucceeded(true);
+			msg.setMsg("User logged in successfully");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			msg.setSucceeded(false);
+            msg.setMsg("Database error");
+		}
 
-    public static Order retrieveData(String orderNumber) {
-        String selectSQL = "SELECT * FROM `order` WHERE Order_number = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(selectSQL)) {
-            pstmt.setString(1, orderNumber);
-            ResultSet resultSet = pstmt.executeQuery();
-            if (resultSet.next()) {
-                return new Order(resultSet.getString("Restaurant"),
-                        resultSet.getInt("Order_number"),
-                        resultSet.getDouble("Total_price"),
-                        resultSet.getInt("Order_list_number"),
-                        resultSet.getString("Order_address"));
+    	return msg;
+    }
+    
+    public static CommMessage Login(String username, String password,CommMessage msg) {
+        try {
+            String query = "SELECT * FROM biteme.users WHERE Username = ? AND Password = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+
+            // Check if result set is empty
+            if (!rs.isBeforeFirst()) {
+                msg.setSucceeded(false);
+                msg.setMsg("User not found");
+                return msg;
+            }
+
+            // If user exists, process the result
+            if (rs.next()) {
+                if (rs.getInt("isLoggedIn") == 1) {
+                    msg.setSucceeded(false);
+                    msg.setMsg("User is already logged in");
+                    return msg;
+                } else {
+                    String firstName = rs.getString("FirstName");
+                    String lastName = rs.getString("LastName");
+                    String id = rs.getString("ID");
+                    String email = rs.getString("Email");
+                    String phoneNumber = rs.getString("PhoneNumber");
+                    UserType role = UserType.valueOf(rs.getString("Role"));
+                    BranchLocation branch = BranchLocation.getEnum(rs.getString("HomeBranch"));
+                    int isLoggedIn = rs.getInt("isLoggedIn");
+                    User user = new User(username,password,firstName,lastName,email,phoneNumber,role,branch,id,1);
+                    //User user = new User(username, password, firstName, lastName, email, phoneNumber, role, branch, id, isLoggedIn);
+
+                    // Update the database to set IsLoggedIn to 1
+                    String updateQuery = "UPDATE biteme.users SET isLoggedIn = 1 WHERE Username = ? AND Password = ?";
+                    PreparedStatement updateStmt = conn.prepareStatement(updateQuery);
+                    updateStmt.setString(1, username);
+                    updateStmt.setString(2, password);
+                    updateStmt.executeUpdate();
+
+                    msg.setSucceeded(true);
+                    msg.setDataFromServer(user);
+                    msg.setMsg("User logged in successfully");
+                }
             }
         } catch (SQLException e) {
-            System.out.println("Failed to retrieve order: " + e.getMessage());
+            e.printStackTrace();
+            msg.setSucceeded(false);
+            msg.setMsg("Database error");
         }
-        return null;
+
+        return msg;
+    }
+    //optional
+    public static ResultSetFromDB  getAllRecordsFrom(String from) {
+    	ResultSet rs = null;
+        String query = "SELECT * FROM " + from;
+        
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return new ResultSetFromDB(rs);
     }
 
     
-    //prototpyte
-    public static boolean updateOrder(Order order) {
-        String updateSQL = "UPDATE `order` SET Total_price = ?, Order_address = ? WHERE Order_number = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
-            //pstmt.setDouble(1, order.getTotal_price()); prototype, irrelevant
-            //pstmt.setString(2, order.getOrder_adress());
-            //pstmt.setInt(3, order.getOrder_number());
-            return pstmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.out.println("Failed to update order: " + e.getMessage());
-            return false;
-        }
-    }
-
-//    public static void closeDBconnection() {
-//        try {
-//            if (conn != null) conn.close();
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //prototype Methods
+//    public static Order retrieveData(String orderNumber) {
+//        String selectSQL = "SELECT * FROM `order` WHERE Order_number = ?";
+//        try (PreparedStatement pstmt = conn.prepareStatement(selectSQL)) {
+//            pstmt.setString(1, orderNumber);
+//            ResultSet resultSet = pstmt.executeQuery();
+//            if (resultSet.next()) {
+//                return new Order(resultSet.getString("Restaurant"),
+//                        resultSet.getInt("Order_number"),
+//                        resultSet.getDouble("Total_price"),
+//                        resultSet.getInt("Order_list_number"),
+//                        resultSet.getString("Order_address"));
+//            }
 //        } catch (SQLException e) {
-//            System.out.println("Failed to close database connection: " + e.getMessage());
+//            System.out.println("Failed to retrieve order: " + e.getMessage());
+//        }
+//        return null;
+//    }
+
+    //prototype Methods
+//    public static boolean updateOrder(Order order) {
+//        String updateSQL = "UPDATE `order` SET Total_price = ?, Order_address = ? WHERE Order_number = ?";
+//        try (PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
+//            pstmt.setDouble(1, order.getTotal_price());
+//            pstmt.setString(2, order.getOrder_adress());
+//            pstmt.setInt(3, order.getOrder_number());
+//            return pstmt.executeUpdate() > 0;
+//        } catch (SQLException e) {
+//            System.out.println("Failed to update order: " + e.getMessage());
+//            return false;
 //        }
 //    }
+
+    /**
+    public static void closeDBconnection() {
+       try {
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            System.out.println("Failed to close database connection: " + e.getMessage());
+        }
+    }
+    */
 }

@@ -2,9 +2,10 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 package client;
-import java.io.*;
+import java.io.IOException;
 
 import common.ChatIF;
+import logic.CommMessage;
 
 
 /**
@@ -41,17 +42,18 @@ public class ClientController implements ChatIF
    * @param host The host to connect to.
    * @param port The port to connect on.
    */
-  public ClientController(String host, int port) 
+  public ClientController(String host, int port, ClientUI clientui) throws IOException
   {
     try 
     {
-      client= new ChatClient(host, port, this);
+      client= new ChatClient(host, port, this, clientui);
       client.openConnection(); //added
     } 
     catch(IOException exception) 
     {
       System.out.println("Error: Can't setup connection!"+ " Terminating client.");
-      System.exit(1);
+      throw new IOException("Cannot connect");
+      //System.exit(1);
     }
   }
 
@@ -62,7 +64,7 @@ public class ClientController implements ChatIF
    * This method waits for input from the console.  Once it is 
    * received, it sends it to the client's message handler.
    */
-  public void accept(Object str) 
+  public void accept(CommMessage str) 
   {
 	  client.handleMessageFromClientUI(str);
   }

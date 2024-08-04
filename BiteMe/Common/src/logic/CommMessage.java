@@ -12,21 +12,19 @@ import EnumsAndConstants.CommandConstants;
  * 
  */
 public class CommMessage implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1062261494793351579L;
+
+	private static final long serialVersionUID = 1L;
 	
 	//data from server to client
-	private boolean isSucceeded;  //flag for indicate if Operation succeeded 
-	private String msg; //description why not succeded
-	private Object dataFromServer; //requested Object from server (if succeeded)
-	private String dataType; //data type of object 
+	public boolean isSucceeded;  //flag for indicate if Operation succeeded 
+	public String msg; //description why not succeded
+	public Object dataFromServer; //requested Object from server (if succeeded)
+	public String dataType; //data type of object 
 	
 	//data from client to server
-	private CommandConstants commandForServer;  //command from user to perform //ENUM
-	private ArrayList<String> messageForServer;  //command descriptions
-	private Object objectForServer; //object for server for create or else
+	public CommandConstants commandForServer;  //command from user to perform //ENUM
+	public ArrayList<String> messageForServer;  //command descriptions
+	public Object objectForServer; //object for server for create or else
 	
 	
 	
@@ -114,8 +112,8 @@ public class CommMessage implements Serializable {
 		this.dataType = dataType;
 	}
 	
-	public String getCommandForServer() {
-		return commandForServer.toString();
+	public CommandConstants getCommandForServer() {
+		return commandForServer;
 	}
 	
 	public void setCommandForServer(CommandConstants commandForServer) {

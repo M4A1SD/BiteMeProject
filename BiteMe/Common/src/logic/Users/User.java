@@ -1,6 +1,8 @@
 package logic.Users;
 
 
+import java.io.Serializable;
+
 import EnumsAndConstants.*;
 
 
@@ -8,7 +10,9 @@ import EnumsAndConstants.*;
  * Abstract class to describe a User.
  * 
  */
-public abstract class User{
+public class User implements Serializable{
+	
+	private static final long serialVersionUID = -8749032741240943517L;
 	
 	private String userName;
 	private String password;
@@ -16,16 +20,10 @@ public abstract class User{
 	private String lastName;
 	private String email;
 	private String phoneNumber;
-	private UserType userType;
+	private UserType role;
 	private BranchLocation mainBranch;
 	private String id;
 	private int isLoggedIn;
-	
-	
-	//THIS DOESNT MATCH SQL TABLE
-	private int refundCredit;
-	
-	
 	
 	/**
 	 * @param id
@@ -38,20 +36,21 @@ public abstract class User{
 	 * @param userType
 	 * @param mainBranch
 	 */
-	public User(String id, String userName, String password, String firstName, String lastName, String email,
-			String phoneNumber, UserType userType, BranchLocation mainBranch)
-	{
-		this.id = id;
+	public User(String userName, String password, String firstName, String lastName, String email, String phoneNumber,
+			UserType role, BranchLocation mainBranch, String id, int isLoggedIn) {
+		super();
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.userType = userType;
+		this.role = role;
 		this.mainBranch = mainBranch;
-	}	
-	
+		this.id = id;
+		this.isLoggedIn = isLoggedIn;
+	}
+
 	public User() {
 	}	
 
@@ -101,7 +100,7 @@ public abstract class User{
 
 
 	public UserType getUserType() {
-		return userType;
+		return role;
 	}
 
 
@@ -140,8 +139,8 @@ public abstract class User{
 
 
 
-	public void setUserType(UserType userType) {
-		this.userType = userType;
+	public void setUserType(UserType role) {
+		this.role = role;
 	}
 
 
@@ -161,13 +160,7 @@ public abstract class User{
 		return id + " " + firstName + " " + lastName;
 	}
 
-	public int getRefundCredit() {
-		return refundCredit;
-	}
 
-	public void setRefundCredit(int refundCredit) {
-		this.refundCredit = refundCredit;
-	}
 	
 	
 }

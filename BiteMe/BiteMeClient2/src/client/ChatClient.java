@@ -1,18 +1,12 @@
 package client;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import com.mysql.cj.xdevapi.Client;
-
+import EnumsAndConstants.CommandConstants;
 import common.ChatIF;
-import gui.LoginPageController;
-import gui.PersonalDataController;
-import gui.RestaurantController;
-import javafx.application.Platform;
+import gui.Helper;
 import logic.CommMessage;
-import logic.Orders.*;
-import logic.Users.*;
+import logic.Users.User;
 import ocsf.client.AbstractClient;
 
 public class ChatClient extends AbstractClient {
@@ -20,58 +14,74 @@ public class ChatClient extends AbstractClient {
 
 	ChatIF clientUI;
 	public static boolean awaitResponse = false;
-	private static ClientUI clientui = null;
-	public static LoginPageController LoginPageController;
-
+	private static ClientUI clientui;
+	private Helper helper = new Helper(); 
+	
 	// Constructors ****************************************************
 
-	public ChatClient(String host, int port, ChatIF clientUI) throws IOException {
+	public ChatClient(String host, int port, ChatIF clientUI, ClientUI clientInstance) throws IOException {
 		super(host, port);
 		this.clientUI = clientUI;
+		clientui = clientInstance;
 	}
 
 	// Instance methods ************************************************
-
-	public void handleMessageFromServer(Object msg) {
-		CommMessage messageFromSrv = new CommMessage();
-		messageFromSrv = (CommMessage) msg;
-		switch (messageFromSrv.getCommandForServer()) {
-		case "Login":
-			if (messageFromSrv.isSucceeded()) {
-				User user = (User) messageFromSrv.getDataFromServer();
-				clientui.openUserGUI(user);
+	
+	@Override
+	public void handleMessageFromServer(Object message) {
+		CommMessage msg = (CommMessage) message;
+		switch (msg.getCommandForServer()) {
+		
+		case Login:
+			if (msg.isSucceeded()) {
+				Helper.login = (User)msg.getDataFromServer();
 			} else {
-				System.out.println(messageFromSrv.getMsg());
+				Helper.errorMsg = msg.getMsg();
 			}
 			break;
-		case "Logout":
-			if (messageFromSrv.isSucceeded()) {
-				User user = (User) messageFromSrv.getDataFromServer();
-				clientui.user.setIsLoggedIn(0);
-				clientui.closeUserGUI(user);
-			} else {
-				System.out.println(messageFromSrv.getMsg());
-			}
-		case "PersonalData":
-			if (messageFromSrv.isSucceeded()) {
-				User user = (User) messageFromSrv.getDataFromServer();
-				clientui.user = user;
-				clientui.reciveMsgToGui("Update Successfull");
-			} else {
-				clientui.reciveMsgToGui("error in updating user");
-			}
+		
+	
+//		case LogOut:
+//			if (msg.isSucceeded()) {
+//				User user2 = (User) msg.getDataFromServer();
+//				clientui.closeUserGUI(user2);
+//			} else {
+//				clientui.showMsgInLoginPage(msg.getMsg());
+//			}
+//			break;
+			
+//		case "PersonalData":
+//			if (messageFromSrv.isSucceeded()) {
+//				User user = (User) messageFromSrv.getDataFromServer();
+//				clientui.user = user;
+//				clientui.reciveMsgToGui("Update Successfull");
+//			} else {
+//				clientui.reciveMsgToGui("error in updating user");
+//			}
+//		case "GetRestaurantData":
+//            if (messageFromSrv.isSucceeded()) {
+//                ArrayList<Supplier> restaurantData = (ArrayList<Supplier>) messageFromSrv.getDataFromServer();
+//                clientui.updateRestaurantData(restaurantData);
+//            } else {
+//                System.out.println("Failed to retrieve restaurant data");
+//            }
+//			break;
+//
+		default:
 			break;
-
 		}
+		
 	}
 
+	
 
-
-	public void handleMessageFromClientUI(Object msg) {
+	public void handleMessageFromClientUI(CommMessage msg) {
 		try {
-
 			awaitResponse = true;
 			sendToServer(msg);
+			if(msg.getCommandForServer().equals(CommandConstants.Login)) {
+				awaitResponse= false;
+			}
 			while (awaitResponse) {
 				try {
 					Thread.sleep(100);
@@ -86,7 +96,8 @@ public class ChatClient extends AbstractClient {
 			quit();
 		}
 	}
-
+	
+	
 	public void quit() {
 		try {
 			closeConnection();
@@ -94,4 +105,5 @@ public class ChatClient extends AbstractClient {
 		}
 		System.exit(0);
 	}
+
 }

@@ -3,8 +3,10 @@ package Server;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import EnumsAndConstants.CommandConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import logic.CommMessage;
 import logic.Orders.Order;
 import logic.Users.ClientUser;
 import ocsf.server.AbstractServer;
@@ -21,67 +23,47 @@ public class EchoServer extends AbstractServer {
         this.controller = controller;
         this.database = new serverDB();
     }
-
+    
     @Override
     public void handleMessageFromClient(Object msg, ConnectionToClient client) {
-        if (msg instanceof String) {
-            String[] parts = ((String) msg).split("/");
-            String commandType = parts[0];
-
-            if ("GET".equals(commandType)) {
-                // Get order data from SQL DB
-                String orderNumber = parts[1];
-                Order targetOrder = database.retrieveData(orderNumber);
-                try {
-                    client.sendToClient(targetOrder);
-                    System.out.println("EchoServer.java handleMessageFromClient() sent targetOrder to client");
-                } catch (IOException e) {
-                    System.out.println("EchoServer.java handleMessageFromClient() couldn't send targetOrder to client");
-                    e.printStackTrace();
-                }
-            } else if ("POST".equals(commandType)) {
-                // POST, orderNum-PK, price, Address
-                int orderNumber = Integer.parseInt(parts[1]);
-                double price = Double.parseDouble(parts[2]);
-                String address = parts[3];
-                String restaurant = parts[4];
-                int ordList  = Integer.parseInt(parts[5]);
-                
-                Order updatedOrder = new Order("", orderNumber, price, 0, address); // Assuming restaurant and list number are not required here
-                boolean success = database.updateOrder(updatedOrder);
-                try {
-                    client.sendToClient(success ? "Update Successful/" + price + "/" + address : "Update Failed");
-                } catch (IOException e) {
-                    System.out.println("EchoServer.java handleMessageFromClient() couldn't send update result to client");
-                    e.printStackTrace();
-                }
-            } else if("disconnect".equals(commandType)) {
-            		
-            	try {
-            			clientDisconnected(client);	
-            			client.sendToClient("can disconnect");
-            		}catch(IOException e){
-            			System.out.println("EchoServer.java handleMessageFromClient() couldn't send update result to client");
-                        e.printStackTrace();
-            		}
-            		           
-            }
-            	
-        }
+    	if (msg instanceof CommMessage) {
+    		
+    		CommMessage commMsg = (CommMessage)msg;
+    		switch (commMsg.getCommandForServer()) {
+			case Login:
+				commMsg = serverDB.Login(commMsg.messageForServer.get(0), commMsg.messageForServer.get(1), commMsg);
+				this.sendToClient(commMsg,client);
+				break;
+				
+			case LogOut:
+				commMsg = serverDB.Logout(commMsg.messageForServer.get(0), commMsg.messageForServer.get(1), commMsg);
+				this.sendToClient(commMsg,client);
+				break;
+				
+//			case GetRestaurant:
+//	
+//				break;
+				
+			case UpdateOrderStatus:
+				
+				break;
+		
+			default:
+				break;
+			}
+    	}
     }
     
-    public ObservableList<ClientUser> getClients() {
-		return FXCollections.observableArrayList(clients);
+	public void sendToClient(Object msg, ConnectionToClient client) {
+		try {
+			client.sendToClient(msg);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println(" Error sending msg to client !");
+		}
 	}
     
-    public boolean areAllDisconnected() {
-		for (ClientUser c : clients) {
-			if (c.getStatus() == "Connected") {
-				return false;
-			}
-		}
-		return true;
-	}
+    
 
     @Override
     protected void clientConnected(ConnectionToClient client) {
@@ -116,6 +98,19 @@ public class EchoServer extends AbstractServer {
 		}
 		System.out.println(clients);
     }
+    
+    public ObservableList<ClientUser> getClients() {
+		return FXCollections.observableArrayList(clients);
+	}
+    
+    public boolean areAllDisconnected() {
+		for (ClientUser c : clients) {
+			if (c.getStatus() == "Connected") {
+				return false;
+			}
+		}
+		return true;
+	}
     
 
     @Override

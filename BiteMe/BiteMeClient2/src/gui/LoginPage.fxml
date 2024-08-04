@@ -13,6 +13,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <top>
@@ -53,7 +54,7 @@
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane prefHeight="430.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to bottom right, #F0F0F0, #F0F0F0, #FFFFF);" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="430.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to bottom right, #F0F0F0, #F0F0F0, #FFFFFF);" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="122.0" layoutY="118.0" prefHeight="26.0" prefWidth="89.0" text="User Name:">
                <font>
@@ -65,10 +66,15 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField layoutX="279.0" layoutY="119.0" prefHeight="25.0" prefWidth="222.0" />
-            <TextField layoutX="280.0" layoutY="193.0" prefHeight="25.0" prefWidth="219.0" />
+            <TextField fx:id="userName" layoutX="279.0" layoutY="119.0" prefHeight="25.0" prefWidth="222.0" />
+            <TextField fx:id="password" layoutX="280.0" layoutY="193.0" prefHeight="25.0" prefWidth="219.0" />
             <Button fx:id="btnLogin" layoutX="330.0" layoutY="276.0" mnemonicParsing="false" onAction="#sumbitCredentialsToServer" prefHeight="25.0" prefWidth="119.0" text="Login" />
-            <Button fx:id="btnExit" layoutX="660.0" layoutY="438.0" mnemonicParsing="false" onAction="#Exit" prefHeight="25.0" prefWidth="115.0" text="Exit" />
+            <Button fx:id="btnExit" layoutX="660.0" layoutY="438.0" mnemonicParsing="false" onAction="#exitApp" prefHeight="25.0" prefWidth="115.0" text="Exit" />
+            <Text fx:id="error" fill="#c91c1c" layoutX="133.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" visible="false" wrappingWidth="525.4700317382812">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
          </children></AnchorPane>
    </center>
 </BorderPane>

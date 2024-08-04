@@ -4,7 +4,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import Server.ServerUI;
-import Server.serverDB;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import logic.Users.*;
+import logic.Users.ClientUser;
 
 public class ServerPortFrameController {
     @FXML
@@ -54,11 +53,34 @@ public class ServerPortFrameController {
     private TextArea errorTextArea; // New TextArea for error messages
 
     private boolean isConnected = false;
+    
+    private ServerUI serverUI;
 
     private String getPort() {
         return portxt.getText();
     }
+    
+    public void setServerUI(ServerUI serverUI) {
+    	this.serverUI = serverUI;
+    }
+    
 
+    public void start(Stage primaryStage) throws Exception {
+    	Parent root = FXMLLoader.load(getClass().getResource("/ServerGui/ServerPort.fxml"));
+    	Scene scene = new Scene(root);  // Set initial window size to 1200x1000
+    	//scene.getStylesheets().add(getClass().getResource("/ServerGui/ServerPort.css").toExternalForm());
+    	primaryStage.setTitle("Server Port");
+    	primaryStage.setScene(scene);
+    	
+    	// Add a listener to handle the window close request
+    	primaryStage.setOnCloseRequest(event -> {
+    		event.consume(); // Consume the event to prevent the default behavior
+    		getExitBtn(null); // Call the getExitBtn method
+    	});
+    	
+    	primaryStage.show();
+    }
+    
     @FXML
     public void initialize() {
         try {
@@ -79,31 +101,9 @@ public class ServerPortFrameController {
             String password = passwordField.getText();
             String databaseName = databaseField.getText();
 
-            if (port.trim().isEmpty() && username.trim().isEmpty() && password.trim().isEmpty() && databaseName.trim().isEmpty()) {
-                showError("All fields must be filled.");
-                return;
+            if (!checkCredentials(port, username, password, databaseName)) {
+            	return;
             }
-            
-            if (port.trim().isEmpty()) {
-                showError("Port field must be filled.");
-                return;
-            }
-
-            if (username.trim().isEmpty()) {
-                showError("Username field must be filled.");
-                return;
-            }
-
-            if (password.trim().isEmpty()) {
-                showError("Password field must be filled.");
-                return;
-            }
-
-            if (databaseName.trim().isEmpty()) {
-                showError("Database Name field must be filled.");
-                return;
-            }
-
             if (connectToDatabase(username, password, databaseName)) {
                 ServerUI.runServer(port, this);
                 btnDone.setText("Disconnect");
@@ -115,11 +115,39 @@ public class ServerPortFrameController {
             disconnect();
         }
     }
+    
+    private boolean checkCredentials(String port, String username, String password,String databaseName) {
+    	if (port.trim().isEmpty() && username.trim().isEmpty() && password.trim().isEmpty() && databaseName.trim().isEmpty()) {
+            showError("All fields must be filled.");
+            return false;
+        }
+        
+        if (port.trim().isEmpty()) {
+            showError("Port field must be filled.");
+            return false;
+        }
+
+        if (username.trim().isEmpty()) {
+            showError("Username field must be filled.");
+            return false;
+        }
+
+        if (password.trim().isEmpty()) {
+            showError("Password field must be filled.");
+            return false;
+        }
+
+        if (databaseName.trim().isEmpty()) {
+            showError("Database Name field must be filled.");
+            return false;
+        }
+        return true;
+    }
 
     private boolean connectToDatabase(String username, String password, String databaseName) {
-        boolean isConnected = serverDB.connectToDB(username, password, databaseName);
+    	boolean isConnected2 = ServerUI.runDB(username, password, databaseName);
         Platform.runLater(() -> {
-            if (isConnected) {
+            if (isConnected2) {
                 connectionStatusLabel.setText("Status: Connected");
                 connectionStatusLabel.setTextFill(javafx.scene.paint.Color.GREEN);
             } else {
@@ -127,7 +155,7 @@ public class ServerPortFrameController {
                 connectionStatusLabel.setTextFill(javafx.scene.paint.Color.RED);
             }
         });
-        return isConnected;
+        return isConnected2;
     }
 
     private void disconnect() {
@@ -143,26 +171,11 @@ public class ServerPortFrameController {
         isConnected = false;
     }
 
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/ServerGui/ServerPort.fxml"));
-        Scene scene = new Scene(root, 700, 740);  // Set initial window size to 1200x1000
-        scene.getStylesheets().add(getClass().getResource("/ServerGui/ServerPort.css").toExternalForm());
-        primaryStage.setTitle("Server Port");
-        primaryStage.setScene(scene);
-
-        // Add a listener to handle the window close request
-        primaryStage.setOnCloseRequest(event -> {
-            event.consume(); // Consume the event to prevent the default behavior
-            getExitBtn(null); // Call the getExitBtn method
-        });
-
-        primaryStage.show();
-    }
 
     @FXML
     public void getExitBtn(ActionEvent event) {
-        try{
-        	if(ServerUI.getInstance().getServer() == null) {
+        try {
+        	if (ServerUI.getInstance().getServer() == null) {
         		throw new NullPointerException();
         	}
         	if (!ServerUI.getInstance().loggedInIndicator()) {
@@ -170,11 +183,14 @@ public class ServerPortFrameController {
         		return;
         	}
         	ServerUI.getInstance().stopServer();
-        } catch (Exception e) {}
+        }catch (Exception e) {
+//        	System.err.println("Error loading FXML or CSS files.");
+//            e.printStackTrace();
+        }
     	System.out.println("Exiting application...");
         // Close DB connection and stop server
         //serverDB.closeDBconnection();
-        System.gc();
+    	System.gc();
         System.exit(0);
     }
 
