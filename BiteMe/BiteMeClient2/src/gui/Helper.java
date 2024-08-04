@@ -14,7 +14,7 @@ import logic.Users.User;
 
 public  class  Helper {
 	
-	public static Object login=null;
+	public static User login=null;
 	
 	
 	private User user;
@@ -27,41 +27,49 @@ public  class  Helper {
 			String fxmlStringPath = "";
 			String title = "";
 			Object controller = null;
-			switch(user.getUserType()) {
-			case Customer:
-				
-				fxmlStringPath = "/gui/CustomerHomePage.fxml";
-				title = "Customer home page";
-				controller= new CustomerHomeController(user);
-				break;
-		case BusinessCustomer:
-			fxmlStringPath = "/gui/BusinessCustomerHomePage.fxml";
-			title = "Business Customer home page";
-			controller= new BusinessCustomerHomePageController(user);
-			break;
-		case BranchManager:
-			fxmlStringPath = "/gui/ManagementHomePage.fxml";
-			title = "Management home page";
-			controller= new ManagementHomePageController(user);
-			break;
-		case CEO:
-			fxmlStringPath = "/gui/ManagementHomePage.fxml";
-			title = "Management home page";
-			controller= new ManagementHomePageController(user);
-			break;
+			try {
+				System.err.println("Helper.java openUserGUI(); user is " +user.toString());
+
+				switch(user.getUserType()) {
+				case Customer:
+					
+					fxmlStringPath = "/gui/CustomerHomePage.fxml";
+					title = "Customer home page";
+					controller= new CustomerHomeController(user);
+					break;
+				case BusinessCustomer:
+					fxmlStringPath = "/gui/BusinessCustomerHomePage.fxml";
+					title = "Business Customer home page";
+					controller= new BusinessCustomerHomePageController(user);
+					break;
+				case BranchManager:
+					fxmlStringPath = "/gui/ManagementHomePage.fxml";
+					title = "Management home page";
+					controller= new ManagementHomePageController(user);
+					break;
+				case CEO:
+					fxmlStringPath = "/gui/ManagementHomePage.fxml";
+					title = "Management home page";
+					controller= new ManagementHomePageController(user);
+					break;
 //		case Supplier:
 //			this.restaurant.setSupplierId(user.getId());
 //			fxmlStringPath = "/gui/SupplierHomePage.fxml";
 //			title = "Supplier home page";
 //			// add constructor !!!!!
 //			break;
-		default:
-			System.out.println("User type not found");
-		}
-		System.out.println("TheGuiKing.java openUserGUI(); doing brand new gui [by servers ask]");
-
-		
-		newGui(title , fxmlStringPath , controller );
+				default:
+					System.out.println("User type not found");
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.err.println("Helper.java openUserGUI(); error in swtich case");
+				e.printStackTrace();
+			}
+			System.out.println("TheGuiKing.java openUserGUI(); doing brand new gui [by servers ask]");
+	
+			
+			newGui(title , fxmlStringPath , controller );
 
 		
 	}

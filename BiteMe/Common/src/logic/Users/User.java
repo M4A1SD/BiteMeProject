@@ -99,8 +99,11 @@ public class User implements Serializable{
 
 
 
-	public UserType getUserType() {
+	public UserType getUserType () throws Exception {
+		if(this.role.equals(null))
+			throw new Exception("User.java getUserType();  user doesnt have role");
 		return role;
+		
 	}
 
 
@@ -156,9 +159,12 @@ public class User implements Serializable{
 		return userName;
 	}
 
+	@Override
 	public String toString() {
-		return id + " " + firstName + " " + lastName;
+		return "User [userName=" + userName + ", role=" + role + "]";
 	}
+
+
 
 
 	

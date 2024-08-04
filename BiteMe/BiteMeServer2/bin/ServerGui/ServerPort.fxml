@@ -55,7 +55,7 @@
             <Label layoutX="31.0" layoutY="158.0" text="Database Name:" />
             <TextField fx:id="portxt" layoutX="191.0" layoutY="22.0" text="5555" />
             <TextField fx:id="usernameField" layoutX="191.0" layoutY="65.0" text="root" />
-            <PasswordField fx:id="passwordField" layoutX="191.0" layoutY="110.0" text="4561" />
+            <PasswordField fx:id="passwordField" layoutX="191.0" layoutY="110.0" text="1234" />
             <TextField fx:id="databaseField" layoutX="191.0" layoutY="154.0" text="biteme" />
             <Button fx:id="btnDone" layoutX="32.0" layoutY="196.0" mnemonicParsing="false" onAction="#Done" text="Connect" />
             <Button fx:id="btnExit" layoutX="14.0" layoutY="576.0" mnemonicParsing="false" onAction="#getExitBtn" text="Exit" />

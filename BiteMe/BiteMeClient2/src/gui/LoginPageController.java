@@ -42,7 +42,7 @@ public class LoginPageController{
     public void sumbitCredentialsToServer(ActionEvent event) throws Exception {
         String userInput = userName.getText();
         String passInput = password.getText();
-        userInput = "bwilliams";
+        userInput = "cjones";
         passInput = "password123";
         ArrayList<String> sendToServer = new ArrayList<String>();
         sendToServer.add(userInput);
@@ -50,9 +50,13 @@ public class LoginPageController{
         //stage.close();
        // Platform.exit();
         client.RequestData(new  CommMessage(CommandConstants.Login,sendToServer));
-        
+        while (Helper.login==null) {
+        	Thread.sleep(50);
+        }
         ((Node)event.getSource()).getScene().getWindow().hide();
-        guiK.openUserGUI((User)guiK.login);
+        System.out.println("LoginPageController.java sumbitCredentialsToServer(); sent to server and hid. sending " + Helper.login);
+        
+        guiK.openUserGUI(Helper.login);
     }
     
 

@@ -7,10 +7,9 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="src" path="/OCSF"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx"/>
 	<classpathentry exported="true" kind="lib" path="mysql-connector-java-8.0.13.jar"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/BiteMeClient2"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/pidor"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/fx"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

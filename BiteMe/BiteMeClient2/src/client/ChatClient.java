@@ -41,8 +41,8 @@ public class ChatClient extends AbstractClient {
 		case Login:
 			if (msg.isSucceeded()) {
 				User user = (User)msg.getDataFromServer();
-				guiK.login = (User)msg.getDataFromServer();
-				System.out.println("ChatClient,java handleMessageFromServer() Login Success");
+				Helper.login = (User)msg.getDataFromServer();
+				System.out.println("ChatClient,java handleMessageFromServer() Login Success. user [helper.java - static Login- "+Helper.login.toString());
 				//Platform.runLater(() -> guiK.openUserGUI(user));
 			} else {
 				clientui.showMsgInLoginPage(msg.getMsg());
@@ -95,9 +95,10 @@ public class ChatClient extends AbstractClient {
 				System.out.println("ChatClient.java handleMessageFromClientUI() Going to sleep");
 
 				try {
-					Thread.sleep(100);
+					Thread.sleep(200);
+					throw new InterruptedException();
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 		} catch (IOException e) {
